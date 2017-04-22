@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Default theme colors -->
+    <color name="colorPrimary">#ab1917</color>
+    <color name="colorPrimaryDark">#292929</color>
+    <color name="colorAccent">#e9e6e6</color>
+
+    <!-- Notification backgrounds -->
+    <color name="colorNotificationSuccess">#518e38</color>
+    <color name="colorNotificationError">#b74240</color>
+    <color name="colorNotificationInfo">#669cb1</color>
+    <color name="colorNotificationWarning">#ca8919</color>
+    <color name="colorNotificationStateless">#cfc9be</color>
+
+</resources>
