@@ -13,6 +13,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import base.BaseActivity;
 import models.SettingsModel;
 
 /**
@@ -30,53 +31,47 @@ public class LocalFileHelper {
     // ---------------------------------------------------------------------------------------------
     // Settings
     // ---------------------------------------------------------------------------------------------
-    public static boolean clearSettings(Activity context)
+    public static boolean clearSettings(BaseActivity context)
     {
-        if(hasSettings(context))
-        {
+        if(hasSettings(context)) {
             File path = context.getFilesDir();
             File file = new File(path, FILENAME_SETTINGS);
+            //Log.d("Log", "Settings: Clearing file: " + FILENAME_SETTINGS);
             return file.delete();
         }
-        else
-        {
+        else {
+            //Log.d("Log", "Settings: Clearing file: " + FILENAME_SETTINGS);
             return true;
         }
     }
 
-    public static SettingsModel getSettings(Activity context)
+    public static SettingsModel getSettings(BaseActivity context)
     {
+        String jsonString = null;
         try {
-            File path = context.getFilesDir();
-            File file = new File(path, FILENAME_SETTINGS);
+            File file = new File(context.getFilesDir(), FILENAME_SETTINGS);
             FileInputStream fin = new FileInputStream(file);
-            String ret = null;
-            ret = convertStreamToString(fin);
+            jsonString = convertStreamToString(fin);
             fin.close();
-
-            Gson gson;
-            GsonBuilder gsonBuilder = new GsonBuilder();
-            gson = gsonBuilder.create();
-
-            return gson.fromJson(ret, SettingsModel.class);
+            Log.d("Log", "Settings: Loading json from file: " + jsonString);
+            return context.globalVariables.gson.fromJson(jsonString, SettingsModel.class);
 
         } catch (Exception e) {
             e.printStackTrace();
+            Log.d("Log", "ERROR Settings: Loading json from file: " + jsonString);
             return null;
         }
     }
 
-    public static boolean saveSettings(Activity context, SettingsModel settingsModel)
+    public static boolean saveSettings(BaseActivity context, SettingsModel settingsModel)
     {
+        // Clear settings file
         clearSettings(context);
+
         File path = context.getFilesDir();
         File file = new File(path, FILENAME_SETTINGS);
-
-        Gson gson;
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        gson = gsonBuilder.create();
-        String jsonString = gson.toJson(settingsModel, SettingsModel.class);
-        Log.d("", "");
+        String jsonString = context.globalVariables.gson.toJson(settingsModel, SettingsModel.class);
+        Log.d("Log", "Settings: Saving json to file: " + jsonString);
         try {
             FileOutputStream stream = new FileOutputStream(file);
             try {
@@ -86,12 +81,13 @@ public class LocalFileHelper {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            Log.d("Log", "ERROR Settings: Saving json to file: " + jsonString);
             return false;
         }
         return true;
     }
 
-    public static boolean hasSettings(Activity context)
+    public static boolean hasSettings(BaseActivity context)
     {
         File path = context.getFilesDir();
         File file = new File(path, FILENAME_SETTINGS);
