@@ -11,6 +11,10 @@ import models.SettingsModel;
  */
 
 public class GlobalVariables extends Application {
+
+    // Settings
     public SettingsModel settingsModel;
+
+    // Gson
     public Gson gson;
 }

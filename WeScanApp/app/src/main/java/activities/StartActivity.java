@@ -29,7 +29,7 @@ public class StartActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        
+
         // Try to load stored settings
         SettingsModel settingsModel;
         if(LocalFileHelper.hasSettings(this))
@@ -38,7 +38,6 @@ public class StartActivity extends BaseActivity {
             if(settingsModel == null) {
                 Log.d("Log", "Settings: Failed to load settings. Default loaded.");
                 ToastHelper.showToast(this, "Failed to load settings. Default loaded.", NotificationType.WARNING);
-                LocalFileHelper.clearSettings(this);
                 settingsModel = new SettingsModel();
                 LocalFileHelper.saveSettings(this, settingsModel);
             }

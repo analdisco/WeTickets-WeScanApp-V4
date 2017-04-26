@@ -25,7 +25,7 @@ public class BaseActivity extends Activity {
 
     protected void onCreated() {
         // Log message
-        Log.d("Log", "Activity: created " + getClass().toString());
+        //Log.d("Log", "Activity: created " + getClass().toString());
     }
 
     @Override
@@ -41,7 +41,7 @@ public class BaseActivity extends Activity {
 
     protected void onStarted() {
         // Log message
-        Log.d("Log", "Activity: started " + getClass().toString());
+        //Log.d("Log", "Activity: started " + getClass().toString());
         Log.d("Log", "---------------------------------------------------------------------------");
     }
 }
